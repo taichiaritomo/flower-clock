@@ -1,26 +1,21 @@
 var draw = SVG('drawing').size(500, 500).link('../');
 var timeElement = document.querySelector('#time');
-
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-// const t = "14191771056331861450905439953328545697861381955239891833290732477079437281"; // number obtained by taking epoch time to the 6th power
+function update() {
+	let myDate = new Date();
+	let timeString = pow( myDate.getTime().toString(), 6 );
+	draw.clear();
+	let pathString = flowerEncode(timeString);
+	draw.path(pathString).center(250, 250).transform({ scale: 20 });
+	timeElement.innerText = printDateTime(myDate);
+}
 
+update();
 
-// let myDate = new Date(1995, 8, 4, 21, 33, 33, 333);
-let myDate = new Date(2019, 11, 31, 11, 59, 59, 999);
-// let myDate = new Date(2020, 0, 1, 0, 0, 0, 0);
-let timeString = pow( myDate.getTime().toString(), 6 );
-console.log(myDate.toUTCString());
-console.log(timeString);
-draw.clear();
-let pathString = flowerEncode(timeString);
-draw.path(pathString).center(250, 250).transform({ scale: 20 });
-
-timeElement.innerText = printDateTime(myDate);
-
-// draw.path(pathString).move(250, 250).transform({ scale: 20 });
-
-// let t = pow( Date.now().toString(), 6 );
+setInterval(() => {
+	update();
+}, 1000);
 
 
 /**
@@ -81,9 +76,8 @@ function flowerEncode(s, radix=10) {
 
 
 function printDateTime( dt ) {
-  console.log(months);
   var month = months[ dt.getMonth() ];
-  return month + ' ' + dt.getDate() + ', ' + dt.getFullYear() + '. ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds() + ':' + dt.getMilliseconds();
+  return month + ' ' + dt.getDate() + ', ' + dt.getFullYear() + '. ' + dt.getHours().toString().padStart(2, '0') + ':' + dt.getMinutes().toString().padStart(2, '0') + ':' + dt.getSeconds().toString().padStart(2, '0') + '.' + dt.getMilliseconds().toString().padStart(3, '0');
 }
  
 
