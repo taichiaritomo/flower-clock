@@ -17,17 +17,17 @@ var playing = true;
 var interval = setInterval(update, 1000);
 
 // toggle to pause/play
-document.querySelector('#drawing').addEventListener('click', () => {
-  if (playing) {
-    playing = false;
-    clearInterval(interval);
-    document.querySelector('#paused').style.display = 'block';
-  } else {
-    playing = true;
-    interval = setInterval(update, 1000);
-    document.querySelector('#paused').style.display = 'none';
-  }
-});
+// document.querySelector('#drawing').addEventListener('click', () => {
+//   if (playing) {
+//     playing = false;
+//     clearInterval(interval);
+//     document.querySelector('#paused').style.display = 'block';
+//   } else {
+//     playing = true;
+//     interval = setInterval(update, 1000);
+//     document.querySelector('#paused').style.display = 'none';
+//   }
+// });
 
 /**
  * Turns an input string of digits into an SVG flower path.
